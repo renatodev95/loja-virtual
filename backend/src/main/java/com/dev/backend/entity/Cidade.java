@@ -4,21 +4,25 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
-@Table(name = "estado")
+@Table(name = "cidade")
 @Data
-public class Estado {
-    
+public class Cidade {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private String nome;
-    private String sigla;
+
+    @ManyToOne
+    @JoinColumn(name = "idEstado")
+    private Estado estado;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCriacao;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataAtualizacao;
 }
