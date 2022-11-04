@@ -16,12 +16,19 @@ public class PessoaClienteService {
 
     @Autowired
     private PermissaoPessoaService permissaoPessoaService;
+    
+    @Autowired
+    private EmailService emailService;
 
     public Pessoa registrar(PessoaClienteRequestDTO obj) {
         Pessoa pessoa = PessoaClienteRequestDTO.converter(obj);
         pessoa.setDataCriacao(new Date());
+        repository.saveAndFlush(pessoa);
         permissaoPessoaService.vincularPessoaPermissaoCliente(pessoa);
-        return repository.saveAndFlush(pessoa);
+        emailService.enviarEmailTexto(obj.getEmail(), 
+                "Cadastro na Loja Virtual", 
+                "O registo na loja foi realizado com sucesso. Em breve você receberá a senha de acesso por email!!");
+        return pessoa;
     }
     
 }
