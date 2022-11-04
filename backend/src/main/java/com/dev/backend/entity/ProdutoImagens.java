@@ -6,24 +6,17 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "produto")
+@Table(name = "produto_imagens")
 @Data
-public class Produto {
+public class ProdutoImagens {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    private String descricaoCurta;
-    private String descricaoDetalhada;
-    private Double valorCusto;
-    private Double valorVenda;
+    private String nome;
     @ManyToOne
-    @JoinColumn(name = "idMarca")
-    private Marca marca;
-    @ManyToOne
-    @JoinColumn(name = "idCategoria")
-    private Categoria categoria;
+    @JoinColumn(name = "idProduto")
+    private Produto produto;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCriacao;
     @Temporal(TemporalType.TIMESTAMP)
